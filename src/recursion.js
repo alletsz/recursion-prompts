@@ -7,20 +7,20 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
-	if(n < 0){
-	  return null;
-	} 
+  if(n < 0){
+    return null;
+  } 
 
-	if(n === 0){
-	  return 1;
-	  
-	}
+  if(n === 0){
+    return 1;
+    
+  }
 
-	return (n * factorial(n-1));
-	//if n === 0
-	  // return 1
-	  //if it is another value call factorial
-	   // return (number * factorial(number - 1));  
+  return (n * factorial(n-1));
+  //if n === 0
+    // return 1
+    //if it is another value call factorial
+     // return (number * factorial(number - 1));  
 };
 
 // 2. Compute the sum of an array of integers.
@@ -109,15 +109,41 @@ var isEven = function(n) {
 // sumBelow(7); // 21
   
 var sumBelow = function(n) {
-  var sumIntegers = [];
+  
+  if(n === 0) {  
+    return n;
+   }  
 
-
+  if (n < 0) {
+    return n + 1 + sumBelow(n + 1); 
+  } else {
+      return n - 1 + sumBelow(n - 1);
+    }
 
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
-var range = function(x, y) {
+var range = function(x, y)  {  
+
+ var rangedArr = []; 
+
+  if (x > y) {    
+    if ((x - y) < 2) {
+      return rangedArr;
+    }
+ 
+    rangedArr.push(x-1);
+    return rangedArr.concat(range(x - 1,y));   
+
+  } else {
+      if ((y - x) < 2) {
+        return rangedArr;
+      } 
+      rangedArr.push(x+1)
+      return rangedArr.concat(range(x + 1,y));
+    }
+    
 };
 
 // 7. Compute the exponent of a number.
@@ -126,6 +152,20 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  if (exp === 0) {
+    return 1;
+  }
+  if (exp === 1) {
+    return base;
+  }
+  
+  if (exp < 0) {
+    return parseFloat((1 / base * exponent(base, exp + 1)).toPrecision(4));
+  } else {
+   
+    return base * exponent(base, exp - 1);
+    
+  }
 };
 
 // 8. Determine if a number is a power of two.
@@ -133,6 +173,18 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  var index = 2
+  var power = 0
+  if (index === n) {
+    return true;
+  }
+  if (index > n) {
+    return false
+  } 
+  
+  
+  return powerOfTwo(n);
+  
 };
 
 // 9. Write a function that reverses a string.
