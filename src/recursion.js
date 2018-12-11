@@ -7,99 +7,81 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
-  if(n < 0){
+if (n < 0) {
     return null;
-  } 
-
-  if(n === 0){
-    return 1;
-    
   }
-
-  return (n * factorial(n-1));
-  //if n === 0
-    // return 1
-    //if it is another value call factorial
-     // return (number * factorial(number - 1));  
+  if (n === 0) {
+    return 1;
+  }
+  return (n * factorial(n - 1));
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
-  //var x = array.length -1;
-  //if array.length === 0
-  //return 0;
-  //return array[n] + array[n-1]
-
-  var x = array.length;
-
-  if (x === 0) {
-    return 0;
+  // base case: length of array === 0
+  if (array.length === 0) {
+  return 0;
   }
-  
-  return array[0] + sum(array.slice(1));
+  //array[0] => 1,2,3,4,5,6 
+  //array.slice(1) => [2,3,4,5,6]
+  // return (total += sum(array.slice(1)));
+
+  var total = array[0];
+  return (total += sum(array.slice(1)))
+  // 1 + sum(array.slice) => [2,3,4,5,6]
+  // 1 + 2 + sum(array.slice)
+
 
 };
 
-//  [1,2,3,4,5]
 
-//  1    +    sum([2, 3, 4, 5])   (+2) 
-//  3    +    sum([3,4,5])        (+3)
-//  6    +    sum([4,5])          (+4)
-//  10   +    sum([5])            (+5) 
-// 15    +    sum([])              (+0)  ends and returns 15 
-
-
-   // check  array length
-   // start sum at 0
-   // array[length] + array[1][0]  
-   //result + array[1][1]
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
-// var flatten = function(array) {
+// var flatten = function(array)    
+  //var newArr = [];
+  //if (Array.isArray(array[0))
+
   
-//___________
-//return 0 if empty array
-//create two separate indexes, one inner and one outer
-//second if check - element.length === undefined
+
+
 var arraySum = function(array) {
+//array.flat
+// have an empty array []
+//check if array is an array 
+  //run the recursive function to check if the next element is an array 
+// push to the array holder  [[[1,2],2], [2,4], 9]
+  var total = 0;
 
-  var sum = 0;
-
-  for (var i = 0; i < array.length; i++) {
-    if(Array.isArray(array[i])) {
-      sum += arraySum(array[i]);
-    } else {
-      sum += array[i];
-    }
-
-  } 
-
-  return sum;
+    for(var i = 0; i < array.length; i++){
+      if(Array.isArray(array[i])){
+        total += arraySum(array[i]);
+      }else{
+        total += array[i];
+      }
+    } 
+      
+    
+    return total;
+   
   
 };
 
 // 4. Check if a number is even.
-// subtract 2 from n until we hit 0
-  // if the result is 0, it is even
-  // if the result === 1  return false
-var isEven = function(n) {
-  if (n === 0) {
+
+var isEven = function(n) {  //10
+  
+  if(n === 0) {
     return true;
-  }
-
-  if (n === - 1) {
+  } else if (n === 1) {
     return false;
-  }
-
-  if (n < 0) {
-    return isEven(n+2);
-
+  } else if(n < 0) {
+    return (isEven(n + 2))
   } else {
-    return isEven(n-2);
+    return (isEven( n - 2))
   }
-
+  
 
 };
   
@@ -109,40 +91,39 @@ var isEven = function(n) {
 // sumBelow(7); // 21
   
 var sumBelow = function(n) {
-  
-  if(n === 0) {  
-    return n;
-   }  
-
-  if (n < 0) {
-    return n + 1 + sumBelow(n + 1); 
-  } else {
-      return n - 1 + sumBelow(n - 1);
-    }
+   var sum = 0  //n = 3
+   if(n === 0) {
+    return sum;
+   } else if (n > 0){  //3 
+    return sum = (n-1) + sumBelow(n - 1) //  
+   }   else {
+    return  sum = (n+1) + sumBelow(n + 1)
+   }
+ 
 
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y)  {  
+  var rangeArr = [];
 
- var rangedArr = []; 
+  if (y - x ===  0|| y - x === 1 ) {
+    return rangeArr;
+  }
+// does not include x and y
+  //return array
 
-  if (x > y) {    
-    if ((x - y) < 2) {
-      return rangedArr;
-    }
- 
-    rangedArr.push(x-1);
-    return rangedArr.concat(range(x - 1,y));   
-
-  } else {
-      if ((y - x) < 2) {
-        return rangedArr;
-      } 
-      rangedArr.push(x+1)
-      return rangedArr.concat(range(x + 1,y));
-    }
+  if (x < y) { 
+    rangeArr = [x +1]
+    return rangeArr.concat(range(x+1,y))
+  } else    
+      if (x - y ===  0|| x - y === 1 ) {
+    return rangeArr;
+} else {
+    rangeArr = [x -1]
+    return rangeArr.concat(range(x-1,y))
+  }
     
 };
 
@@ -152,20 +133,17 @@ var range = function(x, y)  {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+
   if (exp === 0) {
-    return 1;
+    return 1
+  } else if (exp < 0) {
+    return (1/(exponent(base,-exp)))
   }
-  if (exp === 1) {
-    return base;
+  else {
+    return base * exponent(base, exp-1)
   }
-  
-  if (exp < 0) {
-    return parseFloat((1 / base * exponent(base, exp + 1)).toPrecision(4));
-  } else {
+
    
-    return base * exponent(base, exp - 1);
-    
-  }
 };
 
 // 8. Determine if a number is a power of two.
@@ -173,27 +151,43 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
-  var index = 2
-  var power = 0
-  if (index === n) {
+  if(n === 1) {
     return true;
+  } else if (n < 1){
+    return false;
+  } else {  
+    return powerOfTwo(n/2)
   }
-  if (index > n) {
-    return false
-  } 
-  
-  
-  return powerOfTwo(n);
-  
+ 
 };
 
 // 9. Write a function that reverses a string.
-var reverse = function(string) {
+var reverse = function(string) { //'hello'
+
+ var reverseStr =''
+  if(string.length === 0) {
+    return reverseStr
+  } else {
+    reverseStr = string.slice(-1)
+    return reverseStr + reverse(string.slice(0,-1)) 
+  }
+
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
-};
+  var char = string.toLowerCase()
+
+    if (char.length === 0 || char.length === 1){
+        return true;
+    }
+    if (char.slice(0,1) === char.slice(-1)) {
+     return palindrome(char.slice(1, -1));   
+     } else {
+    return false ;    
+}
+}
+
 
 // 11. Write a function that returns the remainder of x divided by y without using the
 // modulo (%) operator.
@@ -201,6 +195,53 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+
+  
+  if(x === 0) {
+    return 0
+  } else if (x < y){
+    return x   
+  } else  if (x > y){
+   
+    return modulo(x- y,y)
+  }
+    //5-2 = 3 -2 = 1 <2   17 - 5 = 12 - 5 = 7 - 5 = x = 2 < y = 5 return 2
+
+
+  // if (x === 0) {
+  //   return 0 
+  // } else if (y === 0 ){
+  //   return NaN;
+  // } else if (x > y) {
+  //   return modulo(x - y, y)
+  // }  
+  // } else if (x < y && x < 0) {  //-6, 11
+  //   return -x
+  // } else if(x < y && x >0) {  //x = 6 y 8  6/8 
+  //   return x
+  // } else if (x > y && x < 0){  //-4, -9
+  //   return x
+  // } else if (x > y && x >0) {  //x10  y 4   
+  //   return modulo(x - y, y)
+  // }
+  
+
+
+  // if (x < 0 && y > 0) {
+  //    return modulo(x+y,y) // -5+2 -3 +2 =-1
+  // }
+  // if (x < 0 && y < 0 &&  x < y)  { //x= -12 , y = -3
+  //  return modulo(x-y,y)
+  // }
+  //  if (x < 0 && y < 0 &&  x > y)  { //x= -4 , y = -6
+  //   return  -x
+  // }
+  // if( x < y) {
+  //   return x
+  // } else {
+  //   return modulo(x-y,y)
+  // }
+    //5-2 = 3 -2 = 1 <2   17 - 5 = 12 - 5 = 7 - 5 = x = 2 < y = 5 return 2
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
